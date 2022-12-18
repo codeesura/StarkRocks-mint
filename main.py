@@ -59,8 +59,9 @@ def wallet_adresi(address , private_key):
 async def mint_fonksiyon(addres, private_key):
     client_account = wallet_adresi(address=addres,private_key=private_key)
     contract = await Contract.from_address(address="0x012f8e318fe04a1fe8bffe005ea4bbd19cb77a656b4f42682aab8a0ed20702f0",client=client_account)
+    starkgate_eth_contract = await Contract.from_address(address="0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",client=client_account)
     calls = [
-        contract.functions["approve"].prepare(int(addres, 16),Web3.toWei(0.05,'ether')),
+        starkgate_eth_contract.functions["approve"].prepare(int("0x012f8e318fe04a1fe8bffe005ea4bbd19cb77a656b4f42682aab8a0ed20702f0", 16),Web3.toWei(0.05,'ether')),
         contract.functions["publicMint"].prepare()
     ]
     print(f"{bcolors.OKCYAN}{calls}{bcolors.ENDC}")
